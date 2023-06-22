@@ -2,15 +2,21 @@ version: "3"
 
 services:
   my-app:
+    container_name: my-app
     build:
-      context: .
-      dockerfile: .docker/Dockerfile
-    image: my-app
-    environment:
-      - "APACHE_LOG_DIR:/app"
+      context: ./php
     ports:
-      - 80:80
-      - 443:443
+      - 8000:443
     volumes:
-      - ./.docker/apache:/etc/apache2/sites-available/ssl
-      - .:/app
+      - ./php/apache:/etc/apache2/sites-available/ssl
+      - ./php:/app
+  
+  my-app2:
+    container_name: my-app2
+    build:
+      context: ./php2
+    ports:
+      - 8001:443
+    volumes:
+      - ./php2/apache:/etc/apache2/sites-available/ssl
+      - ./php2:/app
